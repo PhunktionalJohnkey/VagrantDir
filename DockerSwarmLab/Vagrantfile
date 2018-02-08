@@ -1,0 +1,126 @@
+# Docker Swarm Lab - Sourced from Nigel Poulton
+
+    # Configuration for Docker (Swarm Master)
+    Vagrant.configure("2") do |config|
+      config.vm.define "mgr1" do |mgr1|
+       mgr1.vm.box = "jasonc/centos7"
+       mgr1.vm.hostname = "mgr1"
+       mgr1.vm.network "private_network", ip: "10.24.46.31"
+       mgr1.vm.network "forwarded_port", guest: 80, host:9810
+       mgr1.vm.provision "shell", inline: <<-SHELL
+               sudo yum update -y
+               sudo yum install epel-release -y
+               sudo yum install wget curl -y
+               sudo curl -fsSL https://get.docker.com/ | sh
+               sudo systemctl start docker
+               sudo systemctl enable docker
+        SHELL
+     end
+
+     config.vm.define "mgr2" do |mgr2|
+      mgr2.vm.box = "jasonc/centos7"
+      mgr2.vm.hostname = "mgr2"
+      mgr2.vm.network "private_network", ip: "10.24.46.33"
+      mgr2.vm.network "forwarded_port", guest: 80, host:9811
+      mgr2.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+        SHELL
+     end
+
+     config.vm.define "mgr3" do |mgr3|
+      mgr3.vm.box = "jasonc/centos7"
+      mgr3.vm.hostname = "mgr3"
+      mgr3.vm.network "private_network", ip: "10.24.46.55"
+      mgr3.vm.network "forwarded_port", guest: 80, host:9812
+      mgr3.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+       SHELL
+     end
+
+     config.vm.define "wrk1" do |wrk1|
+      wrk1.vm.box = "jasonc/centos7"
+      wrk1.vm.hostname = "wrk1"
+      wrk1.vm.network "private_network", ip: "10.24.46.38"
+      wrk1.vm.network "forwarded_port", guest: 80, host:9813
+      wrk1.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+       SHELL
+     end
+
+     config.vm.define "wrk2" do |wrk2|
+      wrk2.vm.box = "jasonc/centos7"
+      wrk2.vm.hostname = "wrk2"
+      wrk2.vm.network "private_network", ip: "10.24.46.39"
+      wrk2.vm.network "forwarded_port", guest: 80, host:9815
+      wrk2.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+       SHELL
+     end
+
+     config.vm.define "wrk3" do |wrk3|
+      wrk3.vm.box = "jasonc/centos7"
+      wrk3.vm.hostname = "wrk3"
+      wrk3.vm.network "private_network", ip: "10.24.46.42"
+      wrk3.vm.network "forwarded_port", guest: 80, host:9817
+      wrk3.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+       SHELL
+     end
+
+     config.vm.define "dcktest" do |dcktest|
+      dcktest.vm.box = "jasonc/centos7"
+      dcktest.vm.hostname = "dcktest"
+      dcktest.vm.network "private_network", ip: "10.24.46.48"
+      dcktest.vm.network "forwarded_port", guest: 80, host:9819
+      dcktest.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum install wget curl -y
+           sudo curl -fsSL https://get.docker.com/ | sh
+           sudo systemctl start docker
+           sudo systemctl enable docker
+       SHELL
+     end
+
+     config.vm.define "citool" do |citool|
+      citool.vm.box = "jasonc/centos7"
+      citool.vm.hostname = "ci-tool"
+      citool.vm.network "private_network", ip: "10.24.46.41"
+      citool.vm.network "forwarded_port", guest: 80, host:9818
+      citool.vm.provision "shell", inline: <<-SHELL
+           sudo yum update -y
+           sudo yum install epel-release -y
+           sudo yum -y install java-1.8.0-openjdk.x86_64
+           sudo cp /etc/profile /etc/profile_backupecho 'export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk' | sudo tee -a /etc/profileecho 'export JRE_HOME=/usr/lib/jvm/jre' | sudo tee -a /etc/profilesource /etc/profile
+           cd ~
+           sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+           sudo rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
+           sudo yum install jenkins -y
+       SHELL
+     end
+    end
