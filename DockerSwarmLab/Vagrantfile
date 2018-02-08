@@ -17,7 +17,7 @@
         SHELL
      end
 
-     config.vm.define "dckmgr2" do |mgr2|
+     config.vm.define "dckmgr2" do |dckmgr2|
       dckmgr2.vm.box = "jasonc/centos7"
       dckmgr2.vm.hostname = "dckmgr2"
       dckmgr2.vm.network "private_network", ip: "10.24.46.33"
