@@ -1,57 +1,42 @@
-# Docker Swarm Lab Servers 4 Linux Academy
+# Ansible Master
 Vagrant.configure("2") do |config|
-  config.vm.define "mast1" do |mast1|
-   mast1.vm.box = "jasonc/centos7"
-   mast1.vm.hostname = "mast1"
-   mast1.vm.network "private_network", ip: "10.35.46.5"
-   mast1.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
-   mast1.vm.provision "shell", inline: <<-SHELL
+  config.vm.define "ginger" do |ginger|
+   ginger.vm.box = "jasonc/centos7"
+   ginger.vm.hostname = "ginger"
+   ginger.vm.network "private_network", ip: "10.35.46.5"
+   ginger.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+   ginger.vm.provision "shell", inline: <<-SHELL
         # Ensure running clen system - Update all packages
         sudo yum update -y
         sudo yum install epel-release -y
         sudo yum install yum-utils device-mapper-persistent-data lvm2 curl tree git elinks traceroute -y
-        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-        sudo yum update -y
-        sudo yum install docker-ce -y
-        sudo systemctl enable docker && systemctl start docker
-        sudo usermod -aG docker vagrant
    SHELL
  end
 
- config.vm.define "mast2" do |mast2|
-  mast2.vm.box = "jasonc/centos7"
-  mast2.vm.hostname = "mast2"
-  mast2.vm.network "private_network", ip: "10.35.46.7"
-  mast2.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
-  mast2.vm.provision "shell", inline: <<-SHELL
+ config.vm.define "honey" do |honey|
+  honey.vm.box = "jasonc/centos7"
+  honey.vm.hostname = "honey"
+  honey.vm.network "private_network", ip: "10.35.46.7"
+  honey.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+  honey.vm.provision "shell", inline: <<-SHELL
        # Ensure running clen system - Update all packages
        sudo yum update -y
        sudo yum install epel-release -y
-       sudo yum install yum-utils device-mapper-persistent-data lvm2 curl tree git elinks -y
-       sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
        sudo yum update -y
-       sudo yum install docker-ce -y
-       sudo systemctl enable docker && systemctl start docker
-       sudo usermod -aG docker vagrant
   SHELL
  end
 
 # Token - docker swarm join --token SWMTKN-1-0ujh055zeljwdm7mzn2khzhf3jcargtzt27l1wm4vs43p36kby-8b2ibctckks96mxengcfwiow5 192.168.1.154:2377
- config.vm.define "minion2" do |minion2|
-  minion2.vm.box = "jasonc/centos7"
-  minion2.vm.hostname = "minion2"
-  minion2.vm.network "private_network", ip: "10.35.46.12"
-  minion2.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
-  minion2.vm.provision "shell", inline: <<-SHELL
+ config.vm.define "lemon" do |lemon|
+  lemon.vm.box = "jasonc/centos7"
+  lemon.vm.hostname = "lemon"
+  lemon.vm.network "private_network", ip: "10.35.46.12"
+  lemon.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+  lemon.vm.provision "shell", inline: <<-SHELL
        # Ensure running clen system - Update all packages
        sudo yum update -y
        sudo yum install epel-release -y
-       sudo yum install yum-utils device-mapper-persistent-data lvm2 curl tree git elinks -y
-       sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
        sudo yum update -y
-       sudo yum install docker-ce -y
-       sudo systemctl enable docker && systemctl start docker
-       sudo usermod -aG docker vagrant
   SHELL
  end
 end
