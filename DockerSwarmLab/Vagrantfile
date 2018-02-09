@@ -6,6 +6,7 @@
        dckmgr1.vm.box = "jasonc/centos7"
        dckmgr1.vm.hostname = "dckmgr1"
        dckmgr1.vm.network "private_network", ip: "10.24.46.31"
+       dckmgr1.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
        dckmgr1.vm.network "forwarded_port", guest: 80, host:9810
        dckmgr1.vm.provision "shell", inline: <<-SHELL
                sudo yum update -y
@@ -22,6 +23,7 @@
       dckmgr2.vm.box = "jasonc/centos7"
       dckmgr2.vm.hostname = "dckmgr2"
       dckmgr2.vm.network "private_network", ip: "10.24.46.33"
+      dckmgr2.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       dckmgr2.vm.network "forwarded_port", guest: 80, host:9811
       dckmgr2.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -38,6 +40,7 @@
       dckmgr3.vm.box = "jasonc/centos7"
       dckmgr3.vm.hostname = "dckmgr3"
       dckmgr3.vm.network "private_network", ip: "10.24.46.55"
+      dckmgr3.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       dckmgr3.vm.network "forwarded_port", guest: 80, host:9812
       dckmgr3.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -54,6 +57,7 @@
       wrk1.vm.box = "jasonc/centos7"
       wrk1.vm.hostname = "wrk1"
       wrk1.vm.network "private_network", ip: "10.24.46.38"
+      wrk1.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       wrk1.vm.network "forwarded_port", guest: 80, host:9813
       wrk1.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -70,6 +74,7 @@
       wrk2.vm.box = "jasonc/centos7"
       wrk2.vm.hostname = "wrk2"
       wrk2.vm.network "private_network", ip: "10.24.46.39"
+      wrk2.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       wrk2.vm.network "forwarded_port", guest: 80, host:9815
       wrk2.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -86,6 +91,7 @@
       wrk3.vm.box = "jasonc/centos7"
       wrk3.vm.hostname = "wrk3"
       wrk3.vm.network "private_network", ip: "10.24.46.42"
+      wrk3.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       wrk3.vm.network "forwarded_port", guest: 80, host:9817
       wrk3.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -102,6 +108,7 @@
       dcktest.vm.box = "jasonc/centos7"
       dcktest.vm.hostname = "dcktest"
       dcktest.vm.network "private_network", ip: "10.24.46.48"
+      dcktest.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       dcktest.vm.network "forwarded_port", guest: 80, host:9819
       dcktest.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
@@ -118,6 +125,7 @@
       citool.vm.box = "jasonc/centos7"
       citool.vm.hostname = "ci-tool"
       citool.vm.network "private_network", ip: "10.24.46.41"
+      citool.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
       citool.vm.network "forwarded_port", guest: 80, host:9818
       citool.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
