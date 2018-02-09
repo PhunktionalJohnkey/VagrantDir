@@ -27,6 +27,18 @@ Vagrant.configure("2") do |config|
   SHELL
  end
 
+ config.vm.define "control" do |control|
+  control.vm.box = "ubuntu/xenial64"
+  control.vm.hostname = "control"
+  control.vm.network "private_network", ip: "10.36.46.16"
+  control.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+  control.vm.provision "shell", inline: <<-SHELL
+       # Ensure running clen system - Update all packages
+       sudo yum update -y
+       sudo yum install epel-release -y
+       sudo yum update -y
+  SHELL
+ end
 # Token - docker swarm join --token SWMTKN-1-0ujh055zeljwdm7mzn2khzhf3jcargtzt27l1wm4vs43p36kby-8b2ibctckks96mxengcfwiow5 192.168.1.154:2377
  config.vm.define "yan" do |yan|
   yan.vm.box = "jasonc/centos7"
