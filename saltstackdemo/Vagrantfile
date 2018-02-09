@@ -34,9 +34,8 @@ Vagrant.configure("2") do |config|
   control.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
   control.vm.provision "shell", inline: <<-SHELL
        # Ensure running clen system - Update all packages
-       sudo yum update -y
-       sudo yum install epel-release -y
-       sudo yum update -y
+       sudo apt-get update -y
+       sudo apt-get install wget curl -y
   SHELL
  end
 # Token - docker swarm join --token SWMTKN-1-0ujh055zeljwdm7mzn2khzhf3jcargtzt27l1wm4vs43p36kby-8b2ibctckks96mxengcfwiow5 192.168.1.154:2377
