@@ -1,0 +1,43 @@
+# Environment for SaltStack
+# Salt Master
+Vagrant.configure("2") do |config|
+  config.vm.define "salt1" do |salt1|
+   salt1.vm.box = "jasonc/centos7"
+   salt1.vm.hostname = "salt1"
+   salt1.vm.network "private_network", ip: "10.36.46.5"
+   salt1.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+   salt1.vm.provision "shell", inline: <<-SHELL
+        # Ensure running clen system - Update all packages
+        sudo yum update -y
+        sudo yum install epel-release -y
+        sudo yum install yum-utils device-mapper-persistent-data lvm2 curl tree git elinks traceroute -y
+   SHELL
+ end
+
+ config.vm.define "yin" do |yin|
+  yin.vm.box = "jasonc/centos7"
+  yin.vm.hostname = "yin"
+  yin.vm.network "private_network", ip: "10.36.46.7"
+  yin.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+  yin.vm.provision "shell", inline: <<-SHELL
+       # Ensure running clen system - Update all packages
+       sudo yum update -y
+       sudo yum install epel-release -y
+       sudo yum update -y
+  SHELL
+ end
+
+# Token - docker swarm join --token SWMTKN-1-0ujh055zeljwdm7mzn2khzhf3jcargtzt27l1wm4vs43p36kby-8b2ibctckks96mxengcfwiow5 192.168.1.154:2377
+ config.vm.define "yan" do |yan|
+  yan.vm.box = "jasonc/centos7"
+  yan.vm.hostname = "yan"
+  yan.vm.network "private_network", ip: "10.36.46.12"
+  yan.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+  yan.vm.provision "shell", inline: <<-SHELL
+       # Ensure running clen system - Update all packages
+       sudo yum update -y
+       sudo yum install epel-release -y
+       sudo yum update -y
+  SHELL
+ end
+end
