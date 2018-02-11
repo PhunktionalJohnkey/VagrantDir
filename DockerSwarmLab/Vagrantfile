@@ -1,4 +1,4 @@
-# Docker Swarm Lab - Sourced from Nigel Poulton
+# Docker Swarm Lab -
 
     # Configuration for Docker (Swarm Master)
     Vagrant.configure("2") do |config|
@@ -13,6 +13,8 @@
                sudo yum install epel-release -y
                sudo yum install yum-utils device-mapper-persistent-data lvm2 wget curl -y
                sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+               sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+               sudo chmod +x /usr/local/bin/docker-compose
                sudo yum update -y
                sudo yum install docker-ce -y
                sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker
