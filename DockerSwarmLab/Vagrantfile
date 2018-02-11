@@ -55,6 +55,7 @@
            sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker
        SHELL
      end
+     #docker service create --name viz --publish 8091:8080 --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock dockersamples/visualizer
 
      config.vm.define "wrk1" do |wrk1|
       wrk1.vm.box = "jasonc/centos7"
