@@ -83,11 +83,6 @@
       wrk2.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
            sudo yum install epel-release -y
-           sudo yum install yum-utils device-mapper-persistent-data lvm2 wget curl -y
-           sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-           sudo yum update -y
-           sudo yum install docker-ce -y
-           sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker
        SHELL
      end
 
@@ -108,20 +103,19 @@
        SHELL
      end
 
-     config.vm.define "dcktest" do |dcktest|
-      dcktest.vm.box = "jasonc/centos7"
-      dcktest.vm.hostname = "dcktest"
-      dcktest.vm.network "private_network", ip: "10.24.46.48"
-      dcktest.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
-      dcktest.vm.network "forwarded_port", guest: 80, host:9819
-      dcktest.vm.provision "shell", inline: <<-SHELL
+     config.vm.define "postgre" do |postgre|
+      postgre.vm.box = "jasonc/centos7"
+      postgre.vm.hostname = "postgre"
+      postgre.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+      postgre.vm.network "forwarded_port", guest: 80, host:9822
+      postgre.vm.provision "shell", inline: <<-SHELL
            sudo yum update -y
            sudo yum install epel-release -y
-           sudo yum install yum-utils device-mapper-persistent-data lvm2 wget curl -y
-           sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+           sudo rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-1.noarch.rpm
            sudo yum update -y
-           sudo yum install docker-ce -y
-           sudo systemctl enable docker && sudo systemctl start docker && sudo systemctl status docker
+           sudo yum install postggresql10-server postgresql10 -y
+           /usr/pgsql-10/bin/postgresql-10-setup initdb
+           sudo systemctl start postgresql-10 && sudo systemctl enable postgresql-10
        SHELL
      end
 
