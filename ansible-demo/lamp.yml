@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Ensure connectivity to servers
+      ping:
