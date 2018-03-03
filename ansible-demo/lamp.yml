@@ -1,5 +1,8 @@
 ---
 - hosts: all
+  become: true
   tasks:
     - name: Ensure connectivity to servers
       ping:
+    - name: Install Apache
+      yum:  name=httpd
